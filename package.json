@@ -73,11 +73,6 @@
     "release:web": "gh-pages -d build",
     "release": "release-it"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn test:intergration"
-    }
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
