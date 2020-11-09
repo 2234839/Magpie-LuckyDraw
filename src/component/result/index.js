@@ -20,7 +20,7 @@ class Result extends Component {
           {winnerGroup.winner.map(winner =>
             (<div className="result_item">
               <div className="result_name">{winner.name}</div>
-              <div className="result_phone">{maskPhone(winner.phone, '****')}</div>
+              {/* <div className="result_phone">{maskPhone(winner.phone, '****')}</div> */}
             </div>)
           )}
 

@@ -37,7 +37,7 @@
 }
 .footer {
   font-size: 0.9em;
-  right:40px;
+  right: 40px;
   position: fixed;
   bottom: 20px;
   font-weight: lighter;
@@ -49,24 +49,30 @@
 button {
   cursor: pointer;
   outline: none;
-  color: yellow;
+  color: #fff;
   font-size: 30px;
   background: #6fe4e4;
   height: 100px;
   width: 100px;
   border-radius: 50px;
   border: none;
+
+  width: 320px;
+  height: 88px;
+  background: linear-gradient(180deg, #ff453e 0%, #ff1a0e 100%);
+  box-shadow: 0px 2px 8px 0px #131313;
+  border-radius: 44px;
 }
 
 button.wait {
   cursor: wait;
-  background: #a8d6d6;
+  /* background: #a8d6d6; */
 }
 
 button.disable {
   cursor: not-allowed;
   background: #bccfd6;
-  color: #a9bfc6;
+  color: #5a5a5a;
 }
 
 .next-btn {

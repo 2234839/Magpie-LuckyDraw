@@ -6,10 +6,10 @@ import { addWinner } from '../../redux/actions/lotteryPool';
 import maskPhone from '../../utils/phone_mask';
 import { connect } from 'react-redux';
 import TagCloud from "../common/tag-cloud";
-import './lottery-drawing.css'
+import './lottery-drawing.css';
 
 class LotteryDrawing extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -24,7 +24,7 @@ class LotteryDrawing extends Component {
     return (
       <div className={"lottery-drawing"}>
         <div className="name-cloud-container">
-          <TagCloud tags={this.props.allParticipants.map(participant => participant.name)}/>
+          {/* <TagCloud tags={this.props.allParticipants.map(participant => participant.name)} /> */}
         </div>
         <div>
           <header className={'prize-title'}>
@@ -33,7 +33,9 @@ class LotteryDrawing extends Component {
           <div className={'rolling'}>
             {this.getContent()}
           </div>
-          <button className={this.state.btnDisabled ? "wait" : ""} disabled={this.state.btnDisabled} onClick={this.onClick.bind(this)}>{this.getButton()}</button>
+          <button className={this.state.btnDisabled ? "wait" : ""} disabled={this.state.btnDisabled} onClick={this.onClick.bind(this)}>
+            {this.getButton()}
+          </button>
         </div>
       </div>
     );
@@ -41,8 +43,10 @@ class LotteryDrawing extends Component {
 
   onClick = () => {
     if (this.state.noPrize) {
+      /** 结束了去查看结果 */
       this.props.history.push("/result");
     } else {
+
       if (this.state.isPrizeChanged) {
         this.setState({
           isPrizeChanged: false,
@@ -52,16 +56,18 @@ class LotteryDrawing extends Component {
       }
       try {
         if (this.drawService.isRolling) {
+          /** 选人中， stop 停止 */
           this.drawService.pickOneThenDo((selected) => {
             selected.prize = this.state.currentPrize;
             this.props.addWinner(selected);
             this.computeCurrentPrize();
-          })
+          });
         } else {
+          /** 开始选人 */
           this.drawService.rollUp();
         }
       } catch (err) {
-        console.error(err.message)
+        console.error(err.message);
       }
     }
 
@@ -79,14 +85,14 @@ class LotteryDrawing extends Component {
     }
 
     return this.props.lotteryDrawing.setting.find((lottery) => {
-        const items = this.props.lotteryPool.winners.filter(winner => (winner.prize.id === lottery.id));
-        if ((lottery.totalCount - items.length || 0) <= 0) {
-          return false;
-        }
-        return true
+      const items = this.props.lotteryPool.winners.filter(winner => (winner.prize.id === lottery.id));
+      if ((lottery.totalCount - items.length || 0) <= 0) {
+        return false;
       }
+      return true;
+    }
     );
-  }
+  };
   computeCurrentPrize = () => {
     const currentPrize = this.getCurrentPrize(this.state.isPrizeChanged);
     if (currentPrize) {
@@ -104,32 +110,32 @@ class LotteryDrawing extends Component {
   };
   getTitle = () => {
     if (this.state.existingCountOfCurrentPrize === 0 && !this.state.isPrizeChanged) {
-      return `${this.state.currentPrize.title}(${this.state.currentPrize.totalCount}名)`
-    } else if(this.state.noPrize){
+      return `${this.state.currentPrize.title}(${this.state.currentPrize.totalCount}名)`;
+    } else if (this.state.noPrize) {
       return "";
     }
-    return `${this.state.currentPrize.title}(${this.state.existingCountOfCurrentPrize} / ${this.state.currentPrize.totalCount})`
+    return `${this.state.currentPrize.title}(${this.state.existingCountOfCurrentPrize} / ${this.state.currentPrize.totalCount})`;
   };
 
   getContent = () => {
-    if (!this.state.selectedParticipant.phone || (this.state.existingCountOfCurrentPrize === 0 && !this.drawService.isRolling && !this.state.isPrizeChanged)) {
+    if ((this.state.existingCountOfCurrentPrize === 0 && !this.drawService.isRolling && !this.state.isPrizeChanged)) {
       return "等待开奖";
-    } else if(this.state.noPrize){
+    } else if (this.state.noPrize) {
       return "抽奖结束";
     }
     return (<div className="selectedParticipant">
       <div className="name">{this.state.selectedParticipant.name}</div>
-      <div className="phone">{maskPhone(this.state.selectedParticipant.phone, '😝😝😝😝')}</div>
-    </div>)
+      {/* <div className="phone">{maskPhone(this.state.selectedParticipant.phone, '😝😝😝😝')}</div> */}
+    </div>);
   };
 
   getButton = () => {
     if (this.state.noPrize) {
       return "抽奖结果";
     } else if (this.drawService) {
-      return this.drawService.isRolling ? "stop" : (this.state.isPrizeChanged ? "next" : "start")
+      return this.drawService.isRolling ? "stop" : (this.state.isPrizeChanged ? "next" : "开始抽奖");
     }
-      return '';
+    return '';
   };
 
   launchFullscreen(element) {
@@ -149,7 +155,7 @@ class LotteryDrawing extends Component {
     if (this.props.allParticipants.length < totalLotteryCount) {
       alert("奖项数大于参与者数");
       this.props.history.goBack();
-      return ;
+      return;
     }
     this.launchFullscreen(document.documentElement);
     this.drawService = DrawService.from(this.props.allParticipants)

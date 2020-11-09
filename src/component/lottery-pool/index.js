@@ -26,7 +26,7 @@ class LotteryPool extends Component {
     return (
       <div className="lottery-pool">
         <header>抽奖池设置</header>
-        <section>每一行表示一名参与者（格式：‘姓名 手机号’）
+        <section>每一行表示一名参与者（格式：‘姓名’）
           <span className={'load_demo'} >
             <FontAwesomeIcon icon={faQuestionCircle} />
             <a onClick={this.loadDemoData}>加载示例数据</a>
@@ -38,7 +38,7 @@ class LotteryPool extends Component {
             type="text"
             multiple
             required
-            placeholder="郭晓 13800138000"
+            placeholder="小明"
             value={this.state.allParticipantsInput}
             onChange={(event) => this.onTextChange(event.target.value)}
             style={{ outlineColor: this.state.error ? '#ff5417' : '#50c617' }}

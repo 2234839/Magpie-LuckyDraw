@@ -5,6 +5,8 @@ export default class Participant {
   }
   static fromString(str) {
     const array = str.split(/\t+|\s+/, 2);
+    return new Participant(array[0], array[1]);
+
     if(array[0] && array[1]) {
       if (!(/^[1][3-9][0-9]{9}$/.test(array[1]))) {
         throw new Error(`'${array[0]}'的手机号有误: 请输入11位数字`);

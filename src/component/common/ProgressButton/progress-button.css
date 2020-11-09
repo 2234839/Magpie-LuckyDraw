@@ -1,11 +1,8 @@
 button {
-    cursor: pointer;
-    outline: none;
-    color: yellow;
-    font-size: 30px;
-    background: #6fe4e4;
-    height: 100px;
-    width: 100px;
-    border-radius: 50px;
-    border: none;
+  cursor: pointer;
+  width: 320px;
+  height: 88px;
+  background: linear-gradient(180deg, #ff453e 0%, #ff1a0e 100%);
+  box-shadow: 0px 2px 8px 0px #131313;
+  border-radius: 44px;
 }

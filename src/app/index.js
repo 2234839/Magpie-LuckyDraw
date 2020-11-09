@@ -23,22 +23,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const serializedState = localStorage.getItem('state');
-    if (serializedState && window.confirm('是否恢复上次数据？')) {
-      this.store = getStore(true)
-    } else {
-      this.store = getStore(false)
-      localStorage.removeItem('state');
-    }
+    // const serializedState = localStorage.getItem('state');
+    // if (serializedState && window.confirm('是否恢复上次数据？')) {
+    //   this.store = getStore(true)
+    // } else {
+    //   this.store = getStore(false)
+    //   localStorage.removeItem('state');
+    // }
+    this.store = getStore(false)
     this.setState({
       confirmRecovered: true,
     })
-    this.store.subscribe(() => {
-      window.onbeforeunload = (e) => {
-        const state = this.store.getState();
-        this.saveState(state);
-      };
-    })
+    // this.store.subscribe(() => {
+    //   window.onbeforeunload = (e) => {
+    //     const state = this.store.getState();
+    //     this.saveState(state);
+    //   };
+    // })
   }
 
   saveState = (state) => {
@@ -57,7 +58,7 @@ class App extends Component {
             :
             <Provider store={this.store}>
               <div>
-                <Header className={'header'}/>
+                {/* <Header className={'header'}/> */}
                 <article className={'main'}>
                   <Switch>
                     <Route exact path='/' component={Start}/>
@@ -69,7 +70,7 @@ class App extends Component {
                     <Redirect from="/*" to="/"/>
                   </Switch>
                 </article>
-                <Footer className={'footer'}/>
+                {/* <Footer className={'footer'}/> */}
               </div>
             </Provider>
           }
