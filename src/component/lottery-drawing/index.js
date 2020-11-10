@@ -24,7 +24,7 @@ class LotteryDrawing extends Component {
     return (
       <div className={"lottery-drawing"}>
         <div className="name-cloud-container">
-          {/* <TagCloud tags={this.props.allParticipants.map(participant => participant.name)} /> */}
+          <TagCloud tags={this.props.allParticipants.map(participant => participant.name)} />
         </div>
         <div>
           <header className={'prize-title'}>
